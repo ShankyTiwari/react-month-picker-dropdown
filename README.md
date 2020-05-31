@@ -1,29 +1,114 @@
 # react-month-picker-dropdown
+Month picker as dropdown menu for React Projects
 
-> This is a slim library for month picker as dropdown menu
+## Why react-month-picker-dropdown?
 
-[![NPM](https://img.shields.io/npm/v/react-month-picker-dropdown.svg)](https://www.npmjs.com/package/react-month-picker-dropdown) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+The main goal of this package is to deliver a slim and Skinny Month picker as dropdown menu for React Projects, that can fit into any kind of projects with no muss, no fuss. This menu is completely customizable, in fact, you write your own theme as you like.
+
+## Demo
+
+Check the Month picker in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
 
 ## Install
+You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
 
+#### NPM
 ```bash
 npm install --save react-month-picker-dropdown
+```
+#### YARN
+```          
+yarn add --save react-month-picker-dropdown
 ```
 
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
 
-import MyComponent from 'react-month-picker-dropdown'
+import {
+  MonthPickerDropdown
+} from 'react-month-picker-dropdown'
 import 'react-month-picker-dropdown/dist/index.css'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
+import './green-theme.scss';
+
+const App = () => {
+
+  const handleAMonthChange = (event) => {
+    console.log(event)
   }
+  return (
+    <div className='dropdown-demo'>
+      <MonthPickerDropdown
+        CTabIndex={3}
+        label='Select Months'
+        startYear={2018}
+        startMonth={1}
+        endYear={2020}
+        endMonth={5}
+        displayShortMonthName={false}
+        displayShortYearName={true}
+        onChange = {
+          handleAMonthChange
+        }
+      />
+    </div>
+  )
+}
+
+export default App
+
+```
+## Props
+
+| Prop  | Type  | Default | Description |
+|:--------- | :---- | :----   |:----  |
+| `CTabIndex` | `number` | `1` | To give the tab index
+| `label` | `string` | `Select Months` | This will is display the Month Picker label as **Select Months**.
+| `startYear` | `number` | `Current Year` | Here you can specify the Start year, from where Month dropdown will start.
+| `startMonth` | `number` | `January` | Here you can specify the Start Month.
+| `endYear` | `number` | `Current Year` | Here you can specify the End year, from where Month dropdown will end.
+| `endMonth` | `number` | `December` | Here you can specify the End Month.
+| `displayShortMonthName` | `boolean` | `false` | This option will allow you to set how Months should be display on screen for example, **Jan** or **January**.
+| `displayShortYearName` | `boolean` | `false` | This option will allow you to set how Years should be display on screen for example, **20** or **2020**.
+| `onChange` | `function` | `func` | Callback function will invoked on select event. Params are `startYear`, `startMonth`, `endYear` & `endMonth`.
+
+----
+
+
+## Creating your own theme
+```css
+.month-picker-dropdown .select-months {
+    border: solid 0.5px #022424;
+    background-color: #00a699;
+    color: #fff;
+}
+
+.month-picker-dropdown .select-picker {
+    border-bottom: solid 0.5px #022424;
+    border-left: solid 0.5px #022424;
+    border-right: solid 0.5px #022424;
+}
+
+.month-picker-dropdown .select-picker .select-picker-options .options .option-title {
+    text-align: center;
+}
+
+.month-picker-dropdown .select-picker .select-picker-options .selected-month-background-color {
+    background: #00a699;
+    color: #fff;
+}
+
+.month-picker-dropdown .select-picker .select-picker-options .hovered-month-background-color {
+    background-color: #66e2da;
+    color: #fff;
 }
 ```
+
+## Thanks
+
+This Project is build using [create-react-library](https://www.npmjs.com/package/create-react-library).
 
 ## License
 
