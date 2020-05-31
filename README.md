@@ -7,7 +7,7 @@ The main goal of this package is to deliver a slim and Skinny Month picker as dr
 
 ## Demo
 
-Check the Month picker in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
+Check the Month picker in action, [click here](https://stackblitz.com/edit/react-n3swqy).
 
 ## Install
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
