@@ -240,7 +240,11 @@ export const getSelectedMonthAndYearsLabel = (
     selectedMonthAndYearString = `${selectedStartDate[0].title} ${separatorText} ____`
   }
   if (selectedStartDate.length > 0 && selectedEndDate.length > 0) {
-    selectedMonthAndYearString = `${selectedStartDate[0].title} ${separatorText} ${selectedEndDate[0].title}`
+    if (selectedStartDate[0].id > selectedEndDate[0].id) {
+      selectedMonthAndYearString = `${selectedEndDate[0].title} ${separatorText} ${selectedStartDate[0].title}`
+    } else {
+      selectedMonthAndYearString = `${selectedStartDate[0].title} ${separatorText} ${selectedEndDate[0].title}`
+    }
   }
   return selectedMonthAndYearString
 }
