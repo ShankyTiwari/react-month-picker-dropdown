@@ -6,7 +6,8 @@ import {
   getTotalMonthsAndYears,
   getWeightedSelectedClass,
   getSelectedMonthAndYearsLabel,
-  getFinalValue
+  getFinalValue,
+  shouldDisplayTheCheckbox
 } from './app.services'
 
 import './styles.scss'
@@ -166,7 +167,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
     updateMonthAdYearSection(updatedMonth)
   }
 
-  const renderSelectPicker = (months: YearsWithMonthIntf[]) => {
+  const renderSelectPicker = (props: PropsIntf, months: YearsWithMonthIntf[]) => {
     return (
       <div className={`select-picker ${isVisible}`}>
         <div
@@ -181,14 +182,12 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
               onMouseEnter={() => {
                 handleOnMouseEnter(m)
               }}
-              className={`options ${getWeightedSelectedClass(
-                m
-              )}`}
+              className={`options ${getWeightedSelectedClass(m)}`}
               key={m.id}
             >
               <input
                 readOnly
-                className='option-checkbox'
+                className={`option-checkbox ${shouldDisplayTheCheckbox(props.hideCheckBox)}`}
                 type='checkbox'
                 tabIndex={-1}
                 checked={m.selected || false}
@@ -222,7 +221,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
           monthsAndYearsWithSelection
         )}
       </div>
-      {renderSelectPicker(monthsAndYearsWithSelection)}
+      {renderSelectPicker(props, monthsAndYearsWithSelection)}
     </div>
   )
 }

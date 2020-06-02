@@ -24,6 +24,7 @@ const App = () => {
         endMonth={5}
         displayShortMonthName={true}
         displayShortYearName={false}
+        hideCheckBox={true}
         onChange = {
           handleAMonthChange
         }

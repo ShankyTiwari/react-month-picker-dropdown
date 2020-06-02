@@ -249,6 +249,13 @@ export const getSelectedMonthAndYearsLabel = (
   return selectedMonthAndYearString
 }
 
+export const shouldDisplayTheCheckbox = (shouldDisplayTheCheckbox: boolean): string => {
+  if (typeof shouldDisplayTheCheckbox === 'boolean' && shouldDisplayTheCheckbox) {
+    return constants.HIDE_HTML_ELEMENT
+  }
+  return ''
+}
+
 export const getWeightedSelectedClass = (
   currentYearWithMonth: YearsWithMonthIntf
 ): string => {
