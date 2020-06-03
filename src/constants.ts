@@ -6,6 +6,7 @@ export const constants = {
   INVALID_START_END_MONTH_COMBINATION: 'Invalid Start & End Month combination',
   VISIBILITY_HIDDEN_CLASS: 'visibility-hidden',
   VISIBILITY_SHOWN_CLASS: 'visibility-shown',
+  HIDE_HTML_ELEMENT: 'hide-me',
   SELECTED_MONTH_BACKGROUND_COLOR: 'selected-month-background-color',
   HOVERED_MONTH_BACKGROUND_COLOR: 'hovered-month-background-color',
   MONTHS_WITH_FULL_NAMES: [

@@ -29,7 +29,7 @@ const getYearDifference = (
   return years
 }
 
-export const getFinalValue = (
+export const getFinalLabelToDisplay = (
   monthsAndYearsWithSelection: YearsWithMonthIntf[],
   selectedStartId: number,
   selectedEndId: number
@@ -247,6 +247,13 @@ export const getSelectedMonthAndYearsLabel = (
     }
   }
   return selectedMonthAndYearString
+}
+
+export const shouldDisplayTheCheckbox = (shouldDisplayTheCheckbox: boolean): string => {
+  if (typeof shouldDisplayTheCheckbox === 'boolean' && shouldDisplayTheCheckbox) {
+    return constants.HIDE_HTML_ELEMENT
+  }
+  return ''
 }
 
 export const getWeightedSelectedClass = (

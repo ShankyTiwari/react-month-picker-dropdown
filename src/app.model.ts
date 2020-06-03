@@ -8,6 +8,10 @@ export interface PropsIntf {
   endMonth?: number;
   displayShortMonthName?: boolean;
   displayShortYearName?: boolean;
+  hideCheckBox?: boolean;
+  displayOkAndCancelButton: boolean;
+  markUpForOkButton: Function;
+  markUpForCancelButton: Function;
   onChange: Function;
 }
 
