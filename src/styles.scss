@@ -61,6 +61,17 @@
         background-color: #6a9ccf;
       }
     }
+    .okay-and-cancel {
+      display: flex;
+      .-button {
+        flex: 1;
+        background: #1976d2;
+        color: #fff;
+        border: 0px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    }
   }
   .visibility-hidden {
     visibility: hidden;

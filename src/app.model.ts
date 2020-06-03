@@ -9,6 +9,7 @@ export interface PropsIntf {
   displayShortMonthName?: boolean;
   displayShortYearName?: boolean;
   hideCheckBox?: boolean;
+  displayOkAndCancelButton: boolean;
   onChange: Function;
 }
 

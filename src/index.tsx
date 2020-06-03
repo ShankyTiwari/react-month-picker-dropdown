@@ -6,29 +6,25 @@ import {
   getTotalMonthsAndYears,
   getWeightedSelectedClass,
   getSelectedMonthAndYearsLabel,
-  getFinalValue,
+  getFinalLabelToDisplay,
   shouldDisplayTheCheckbox
 } from './app.services'
 
 import './styles.scss'
 
-const renderErrorMessage = (errorMessage: string) => {
-  return (
-    <div className='month-picker-dropdown'>
-      <span className='error'>{errorMessage}</span>
-    </div>
-  )
-}
-
 export const MonthPickerDropdown = (props: PropsIntf) => {
   const { monthsAndYears, errorMessage } = validateAndSetValidInputValues(props)
   if (errorMessage) {
-    return renderErrorMessage(errorMessage)
+    return (
+      <div className='month-picker-dropdown'>
+        <span className='error'>{errorMessage}</span>
+      </div>
+    )
   }
 
   const months = getTotalMonthsAndYears({ ...props, ...monthsAndYears })
 
-  const [monthsAndYearsWithSelection, updateMonthAdYearSection] = useState(months)
+  const [monthsAndYearsWithSelection, updateMonthAndYearSection] = useState(months)
   const [selectedMonthsAndYearsID, setSelectedMonthsAndYearsID] = useState({
     firstSelectedMonthID: null,
     lastSelectedMonthID: null
@@ -37,7 +33,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
     constants.VISIBILITY_HIDDEN_CLASS
   )
 
-  const toggleOptionList = () => {
+  const hideOptionList = () => {
     setPickerVisibility(constants.VISIBILITY_HIDDEN_CLASS)
   }
 
@@ -62,7 +58,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
           return m
         }
       )
-      updateMonthAdYearSection(updatedMonth)
+      updateMonthAndYearSection(updatedMonth)
       setSelectedMonthsAndYearsID({
         firstSelectedMonthID: selectedMonthAndYear.id,
         lastSelectedMonthID: null
@@ -76,7 +72,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
           firstSelectedMonthID: null,
           lastSelectedMonthID: null
         })
-        updateMonthAdYearSection(months)
+        updateMonthAndYearSection(months)
         return
       }
       const updatedMonth = monthsAndYearsWithSelection.map(
@@ -96,24 +92,14 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
           return m
         }
       )
-      updateMonthAdYearSection(updatedMonth)
+      updateMonthAndYearSection(updatedMonth)
       setSelectedMonthsAndYearsID({
         firstSelectedMonthID: selectedMonthsAndYearsID.firstSelectedMonthID,
         lastSelectedMonthID: selectedMonthAndYear.id
       })
 
-      const finalSelectedValue = getFinalValue(
-        updatedMonth,
-        selectedMonthsAndYearsID.firstSelectedMonthID,
-        selectedMonthAndYear.id
-      )
-      if (finalSelectedValue) {
-        props.onChange({
-          startMonth: finalSelectedValue.startMonth,
-          startYear: finalSelectedValue.startYear,
-          endMonth: finalSelectedValue.endMonth,
-          endYear: finalSelectedValue.endYear
-        })
+      if (!props.displayOkAndCancelButton) {
+        sendSelectedMonthAndYearToProps()
       }
     }
   }
@@ -154,7 +140,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
         return m
       }
     )
-    updateMonthAdYearSection(updatedMonth)
+    updateMonthAndYearSection(updatedMonth)
   }
 
   const handleOnMouseLeave = () => {
@@ -164,7 +150,32 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
         return m
       }
     )
-    updateMonthAdYearSection(updatedMonth)
+    updateMonthAndYearSection(updatedMonth)
+  }
+
+  const sendSelectedMonthAndYearToProps = () => {
+    const finalSelectedValue = getFinalLabelToDisplay(
+      monthsAndYearsWithSelection,
+      selectedMonthsAndYearsID.firstSelectedMonthID,
+      selectedMonthsAndYearsID.lastSelectedMonthID
+    )
+    if (finalSelectedValue) {
+      props.onChange({
+        startMonth: finalSelectedValue.startMonth,
+        startYear: finalSelectedValue.startYear,
+        endMonth: finalSelectedValue.endMonth,
+        endYear: finalSelectedValue.endYear
+      })
+    }
+  }
+
+  const getOkayAndCancelButton = () => {
+    return (
+      <div className='okay-and-cancel'>
+        <button tabIndex={props.CTabIndex ? props.CTabIndex : 0} className='-button' onMouseDown={sendSelectedMonthAndYearToProps}> Select </button>
+        <button tabIndex={props.CTabIndex ? props.CTabIndex : 0} className='-button' onMouseDown={hideOptionList}> Cancel </button>
+      </div>
+    )
   }
 
   const renderSelectPicker = (props: PropsIntf, months: YearsWithMonthIntf[]) => {
@@ -196,16 +207,17 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
             </div>
           ))}
         </div>
+        {props.displayOkAndCancelButton && getOkayAndCancelButton()}
       </div>
     )
   }
 
   return (
     <div
-      tabIndex={props.CTabIndex ? props.CTabIndex : 1}
+      tabIndex={props.CTabIndex ? props.CTabIndex : 0}
       className='month-picker-dropdown'
-      onFocus={toggleOptionList}
-      onBlur={() => setTimeout(toggleOptionList, 200)}
+      onFocus={hideOptionList}
+      onBlur={() => setTimeout(hideOptionList, 200)}
     >
       <div
         className='select-months'

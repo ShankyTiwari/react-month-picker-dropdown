@@ -29,7 +29,7 @@ const getYearDifference = (
   return years
 }
 
-export const getFinalValue = (
+export const getFinalLabelToDisplay = (
   monthsAndYearsWithSelection: YearsWithMonthIntf[],
   selectedStartId: number,
   selectedEndId: number
