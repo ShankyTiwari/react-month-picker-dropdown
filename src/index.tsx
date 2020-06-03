@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { constants } from './constants'
 import { PropsIntf, YearsWithMonthIntf } from './app.model'
 import {
@@ -33,11 +33,20 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
     constants.VISIBILITY_HIDDEN_CLASS
   )
 
+  useEffect(() => {
+    if (selectedMonthsAndYearsID.firstSelectedMonthID === null || selectedMonthsAndYearsID.lastSelectedMonthID === null) {
+      return
+    }
+    if (!props.displayOkAndCancelButton) {
+      sendSelectedMonthAndYearToProps()
+    }
+  }, [selectedMonthsAndYearsID])
+
   const hideOptionList = () => {
     setPickerVisibility(constants.VISIBILITY_HIDDEN_CLASS)
   }
 
-  const handleClick = (selectedMonthAndYear: YearsWithMonthIntf, props: PropsIntf) => {
+  const handleClick = (selectedMonthAndYear: YearsWithMonthIntf) => {
     let isReverse = false
     if (selectedMonthsAndYearsID.firstSelectedMonthID !== null) {
       if (selectedMonthsAndYearsID.firstSelectedMonthID > selectedMonthAndYear.id) {
@@ -97,10 +106,6 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
         firstSelectedMonthID: selectedMonthsAndYearsID.firstSelectedMonthID,
         lastSelectedMonthID: selectedMonthAndYear.id
       })
-
-      if (!props.displayOkAndCancelButton) {
-        sendSelectedMonthAndYearToProps()
-      }
     }
   }
 
@@ -169,13 +174,43 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
     }
   }
 
-  const getOkayAndCancelButton = () => {
+  const getOkayAndCancelButton = (props: PropsIntf) => {
     return (
       <div className='okay-and-cancel'>
-        <button tabIndex={props.CTabIndex ? props.CTabIndex : 0} className='-button' onMouseDown={sendSelectedMonthAndYearToProps}> Select </button>
-        <button tabIndex={props.CTabIndex ? props.CTabIndex : 0} className='-button' onMouseDown={hideOptionList}> Cancel </button>
+        {props.markUpForOkButton ? (
+          <div
+            className='okay-and-cancel-container'
+            onMouseDown={sendSelectedMonthAndYearToProps}
+          >
+            {props.markUpForOkButton()}
+          </div>
+        ) : (
+          <button
+            tabIndex={props.CTabIndex ? props.CTabIndex : 0}
+            className='okay-and-cancel-container-button'
+            onMouseDown={sendSelectedMonthAndYearToProps}
+          >
+            Select
+          </button>
+        )}
+        {props.markUpForCancelButton ? (
+          <div
+            className='okay-and-cancel-container'
+            onMouseDown={hideOptionList}
+          >
+            {props.markUpForCancelButton()}
+          </div>
+        ) : (
+          <button
+            tabIndex={props.CTabIndex ? props.CTabIndex : 0}
+            className='okay-and-cancel-container-button'
+            onMouseDown={hideOptionList}
+          >
+            Cancel
+          </button>
+        )}
       </div>
-    )
+    );
   }
 
   const renderSelectPicker = (props: PropsIntf, months: YearsWithMonthIntf[]) => {
@@ -188,7 +223,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
           {months.map((m: YearsWithMonthIntf) => (
             <div
               onClick={() => {
-                handleClick(m, props)
+                handleClick(m)
               }}
               onMouseEnter={() => {
                 handleOnMouseEnter(m)
@@ -207,7 +242,7 @@ export const MonthPickerDropdown = (props: PropsIntf) => {
             </div>
           ))}
         </div>
-        {props.displayOkAndCancelButton && getOkayAndCancelButton()}
+        {props.displayOkAndCancelButton && getOkayAndCancelButton(props)}
       </div>
     )
   }

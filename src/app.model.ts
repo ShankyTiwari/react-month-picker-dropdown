@@ -10,6 +10,8 @@ export interface PropsIntf {
   displayShortYearName?: boolean;
   hideCheckBox?: boolean;
   displayOkAndCancelButton: boolean;
+  markUpForOkButton: Function;
+  markUpForCancelButton: Function;
   onChange: Function;
 }
 

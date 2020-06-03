@@ -70,5 +70,19 @@
         color: #fff;
       }
     }
+    .okay-and-cancel {
+      display: flex;
+      .okay-and-cancel-container {
+        .-button {
+          flex: 1;
+          background-color: #00a699;
+          color: #fff;
+          border: 0px;
+          padding: 10px 20px;
+          cursor: pointer;
+          width: 100%;
+        }
+      }
+    }
   }
 }

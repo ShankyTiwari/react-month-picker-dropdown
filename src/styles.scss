@@ -63,13 +63,16 @@
     }
     .okay-and-cancel {
       display: flex;
-      .-button {
+      .okay-and-cancel-container-button {
         flex: 1;
         background: #1976d2;
         color: #fff;
         border: 0px;
         padding: 10px 20px;
         cursor: pointer;
+      }
+      .okay-and-cancel-container {
+        flex: 1;
       }
     }
   }

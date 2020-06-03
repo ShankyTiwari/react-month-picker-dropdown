@@ -12,12 +12,25 @@ const App = () => {
   const handleAMonthChange = (event) => {
     console.log(event)
   }
+
+  const getMarkUpForOkButton = () => {
+    return (
+      <button className='button'> Select Me</button>
+    )
+  }
+
+  const getMarkUpForCancelButton = () => {
+    return (
+      <button className='button'> Cancel Me</button>
+    )
+  }
+
   return (
-    <div className='dropdown-demo'>
+    <div className="dropdown-demo">
       <MonthPickerDropdown
         CTabIndex={3}
-        label='Select Months'
-        searchTextLabel='Filter the months by typing here'
+        label="Select Months"
+        searchTextLabel="Filter the months by typing here"
         startYear={2018}
         startMonth={1}
         endYear={2020}
@@ -25,12 +38,13 @@ const App = () => {
         displayShortMonthName={true}
         displayShortYearName={false}
         hideCheckBox={true}
-        onChange = {
-          handleAMonthChange
-        }
+        // displayOkAndCancelButton={true}
+        // markUpForOkButton={getMarkUpForOkButton}
+        // markUpForCancelButton={getMarkUpForCancelButton}
+        onChange={handleAMonthChange}
       />
     </div>
-  )
+  );
 }
 
 export default App
