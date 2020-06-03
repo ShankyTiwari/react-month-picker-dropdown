@@ -71,9 +71,8 @@
       }
     }
     .okay-and-cancel {
-      display: flex;
       .okay-and-cancel-container {
-        .-button {
+        .button {
           flex: 1;
           background-color: #00a699;
           color: #fff;

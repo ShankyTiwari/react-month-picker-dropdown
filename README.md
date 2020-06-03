@@ -38,23 +38,39 @@ const App = () => {
   const handleAMonthChange = (event) => {
     console.log(event)
   }
+
+  const getMarkUpForOkButton = () => {
+    return (
+      <button className='button'> Select Me</button>
+    )
+  }
+
+  const getMarkUpForCancelButton = () => {
+    return (
+      <button className='button'> Cancel Me</button>
+    )
+  }
+
   return (
-    <div className='dropdown-demo'>
+    <div className="dropdown-demo">
       <MonthPickerDropdown
         CTabIndex={3}
-        label='Select Months'
+        label="Select Months"
+        searchTextLabel="Filter the months by typing here"
         startYear={2018}
         startMonth={1}
         endYear={2020}
         endMonth={5}
-        displayShortMonthName={false}
-        displayShortYearName={true}
-        onChange = {
-          handleAMonthChange
-        }
+        displayShortMonthName={true}
+        displayShortYearName={false}
+        hideCheckBox={true}
+        displayOkAndCancelButton={true}
+        markUpForOkButton={getMarkUpForOkButton}
+        markUpForCancelButton={getMarkUpForCancelButton}
+        onChange={handleAMonthChange}
       />
     </div>
-  )
+  );
 }
 
 export default App
@@ -72,6 +88,9 @@ export default App
 | `endMonth` | `number` | `December` | Here you can specify the End Month.
 | `displayShortMonthName` | `boolean` | `false` | This option will allow you to set how Months should be display on screen for example, **Jan** or **January**.
 | `displayShortYearName` | `boolean` | `false` | This option will allow you to set how Years should be display on screen for example, **20** or **2020**.
+| `hideCheckBox` | `boolean` | `false` | With the help of this option you hide the checkboxes shown in the list.
+| `displayOkAndCancelButton` | `boolean` | `false` | With this You can show the Submit and Cancel button in the end of the list of months.
+| `markUpForOkButton`, `markUpForCancelButton` | `function` | `func` | These two props will expect the function which should return the JSX. This is useful if you want to display custom Submit or Cancel button.
 | `onChange` | `function` | `func` | Callback function will invoked on select event. Params are `startYear`, `startMonth`, `endYear` & `endMonth`.
 
 ----
